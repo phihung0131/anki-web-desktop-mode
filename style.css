@@ -1,0 +1,287 @@
+/* AnkiWeb Desktop Mode */
+:root {
+  --aw-accent: #2563eb;
+}
+
+/* ---------- Layout thẻ: không tràn khung ---------- */
+main {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-wrap: break-word;
+}
+img, video, canvas {
+  max-width: 100% !important;
+  height: auto;
+}
+#qa table, main table { max-width: 100%; }
+#qa pre, main pre { white-space: pre-wrap; max-width: 100%; }
+
+/* ---------- Nút âm thanh ---------- */
+audio { display: none !important; }
+
+/* AnkiWeb bọc nút trong .audio-wrap-floating; đặt trên thanh chấm điểm, cố định, không nhảy khi hover */
+.audio-wrap-floating {
+  position: fixed !important;
+  right: 24px !important;
+  bottom: 90px !important;
+  z-index: 2147483647 !important;
+  transform: none !important;
+  transition: none !important;
+}
+.aw-play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--aw-accent);
+  background: #fff;
+  color: var(--aw-accent);
+  cursor: pointer;
+  font-size: 0;
+  line-height: 0;
+  transform: none !important;
+  transition: background 0.15s, color 0.15s;
+}
+.aw-play::before {
+  content: "";
+  display: block;
+  border-style: solid;
+  border-width: 7px 0 7px 12px;
+  border-color: transparent transparent transparent currentColor;
+  margin-left: 3px;
+}
+.aw-play:hover,
+.aw-play.aw-playing {
+  background: var(--aw-accent);
+  color: #fff;
+}
+.aw-play.aw-playing::before {
+  border: none;
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+/* ---------- Nút chấm điểm ---------- */
+button[data-aw-rate] {
+  min-width: 84px;
+  padding: 10px 18px;
+  border: none !important;
+  border-radius: 10px;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: filter 0.15s;
+}
+button[data-aw-rate=again] { background: #ef4444 !important; }
+button[data-aw-rate=hard]  { background: #f59e0b !important; }
+button[data-aw-rate=good]  { background: #22c55e !important; }
+button[data-aw-rate=easy]  { background: #3b82f6 !important; }
+button[data-aw-rate]:hover { filter: brightness(1.1); }
+button[data-aw-key]::after {
+  content: attr(data-aw-key);
+  margin-left: 8px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.28);
+  font-size: 11px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+/* ---------- Khung thẻ ---------- */
+body { background: #f5f7fb; }
+#qa_box {
+  border-radius: 16px;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Chế độ tối: đảo màu trang, giữ nguyên ảnh và các nút màu ---------- */
+html.aw-dark {
+  filter: invert(1) hue-rotate(180deg);
+  background: #fff;
+}
+html.aw-dark img,
+html.aw-dark video,
+html.aw-dark canvas,
+html.aw-dark .aw-play,
+html.aw-dark .aw-gear,
+html.aw-dark .aw-panel,
+html.aw-dark .aw-toast,
+html.aw-dark button[data-aw-rate] {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* ---------- Nút và bảng cài đặt ---------- */
+.aw-gear {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  background: #fff;
+  color: #475569;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+.aw-gear:hover { opacity: 1; }
+.aw-panel {
+  position: fixed;
+  left: 16px;
+  bottom: 64px;
+  z-index: 2147483647;
+  width: 280px;
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+  color: #1e293b;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  font: 14px/1.4 system-ui, sans-serif;
+}
+.aw-panel[hidden] { display: none; }
+.aw-title {
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: 700;
+}
+.aw-panel label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 0;
+  border-top: 1px solid #f1f5f9;
+}
+.aw-panel select {
+  padding: 3px 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+.aw-sw { position: relative; width: 38px; height: 22px; }
+.aw-sw input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; z-index: 1; }
+.aw-sw i {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #cbd5e1;
+  transition: background 0.15s;
+}
+.aw-sw i::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.15s;
+}
+.aw-sw input:checked + i { background: var(--aw-accent); }
+.aw-sw input:checked + i::after { left: 19px; }
+.aw-keys {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #64748b;
+}
+.aw-keys b {
+  padding: 1px 5px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #f8fafc;
+  color: #334155;
+  font-weight: 600;
+}
+
+/* ---------- Thông báo nổi ---------- */
+.aw-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 110px;
+  z-index: 2147483647;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #1e293b;
+  color: #fff;
+  font: 14px system-ui, sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity 0.2s;
+}
+.aw-toast.aw-show { opacity: 1; }
+.aw-toast.aw-show.aw-click { pointer-events: auto; cursor: pointer; }
+
+/* ---------- Chế độ tập trung: ẩn header và nút Edit/Limits/+/- ---------- */
+html.aw-focus nav,
+html.aw-focus #quiz > .float-start {
+  display: none !important;
+}
+
+/* ---------- Số thẻ còn lại: 3 viên thuốc Mới / Học / Ôn ---------- */
+#quiz > .float-end {
+  float: none !important;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 6px 0 14px;
+  font-size: 0; /* ẩn dấu "+" giữa các số */
+}
+.count.svelte-rf1f2f,
+#quiz > .float-end > span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  text-decoration: none !important;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+#quiz > .float-end > span::after {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+#quiz > .float-end > .new    { color: #2563eb; }
+#quiz > .float-end > .learn  { color: #dc2626; }
+#quiz > .float-end > .review { color: #16a34a; }
+#quiz > .float-end > .new::after    { content: "Mới"; }
+#quiz > .float-end > .learn::after  { content: "Học"; }
+#quiz > .float-end > .review::after { content: "Ôn"; }
+/* thẻ đang học thuộc loại nào thì sáng lên */
+#quiz > .float-end > .active {
+  opacity: 1;
+  box-shadow: 0 0 0 2px currentColor, 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+html.aw-dark #quiz > .float-end > span { filter: invert(1) hue-rotate(180deg); }

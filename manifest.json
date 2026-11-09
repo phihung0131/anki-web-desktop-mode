@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "AnkiWeb Desktop Mode",
+  "version": "1.4.0",
+  "description": "Làm AnkiWeb dễ dùng hơn: tự phát âm thanh, nút âm thanh gọn thay thanh audio mặc định, phím R để nghe lại, sửa layout thẻ bị bể.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ankiweb.net/*",
+        "https://ankiuser.net/*"
+      ],
+      "all_frames": true,
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "style.css"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "storage"
+  ]
+}
